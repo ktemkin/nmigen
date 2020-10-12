@@ -393,7 +393,8 @@ class Fragment:
                 if sig not in defs:
                     defs[sig] = self
                 else:
-                    assert defs[sig] is self
+                    if defs[sig] is not self:
+                        raise TypeError(f"I/O port '{sig.name}' used incorrectly. (Did you try to assign to an input port?)")
 
         def add_io(*sigs):
             for sig in flatten(sigs):
